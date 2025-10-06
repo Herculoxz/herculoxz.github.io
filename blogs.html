@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Post | Your Name</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lora:wght@400;500;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --bg-color: #f5e6d3;
+            --text-color: #3a2f24;
+            --accent-brown: #8b6f47;
+            --accent-red: #c1440e;
+            --accent-blue: #5b8fa3;
+            --card-bg: #ffffff;
+            --grid-color: rgba(139, 111, 71, 0.15);
+            --shadow: rgba(139, 111, 71, 0.1);
+        }
+        
+        [data-theme="dark"] {
+            --bg-color: #1a1410;
+            --text-color: #f5e6d3;
+            --card-bg: #2b2318;
+            --grid-color: rgba(139, 111, 71, 0.3);
+            --shadow: rgba(0, 0, 0, 0.5);
+        }
+        
+        body {
+            font-family: 'Lora', serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            transition: background-color 0.3s, color 0.3s;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(var(--grid-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 30px 30px;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .theme-toggle {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            background: var(--card-bg);
+            border: 2px solid var(--accent-brown);
+            border-radius: 50px;
+            padding: 0.7rem 1.5rem;
+            cursor: pointer;
+            font-family: 'Lora', serif;
+            font-weight: 600;
+            color: var(--text-color);
+            box-shadow: 0 4px 15px var(--shadow);
+            transition: all 0.3s;
+            z-index: 100;
+        }
+        
+        .theme-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--shadow);
+        }
+        
+        .back-btn {
+            display: inline-block;
+            background: var(--card-bg);
+            color: var(--text-color);
+            border: 2px solid var(--accent-brown);
+            padding: 0.7rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            margin-bottom: 2rem;
+            transition: all 0.3s;
+            box-shadow: 0 2px 10px var(--shadow);
+        }
+        
+        .back-btn:hover {
+            background: var(--accent-brown);
+            color: #ffffff;
+            transform: translateX(-5px);
+        }
+        
+        article {
+            background: var(--card-bg);
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px var(--shadow);
+            margin-bottom: 3rem;
+        }
+        
+        .blog-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--accent-brown);
+        }
+        
+        #blog-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--accent-red);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        #blog-meta {
+            color: var(--accent-blue);
+            font-style: italic;
+            font-size: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        #markdown-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--accent-brown);
+            margin: 2.5rem 0 1rem;
+        }
+        
+        #markdown-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--accent-brown);
+            margin: 2rem 0 1rem;
+        }
+        
+        #markdown-content p {
+            font-size: 1.15rem;
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+        
+        #markdown-content ul, #markdown-content ol {
+            margin: 1.5rem 0 1.5rem 2rem;
+            font-size: 1.1rem;
+        }
+        
+        #markdown-content li {
+            margin-bottom: 0.8rem;
+        }
+        
+        #markdown-content blockquote {
+            border-left: 4px solid var(--accent-red);
+            padding-left: 1.5rem;
+            margin: 2rem 0;
+            font-style: italic;
+            color: var(--accent-brown);
+            background: var(--bg-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+        
+        #markdown-content code {
+            background: var(--bg-color);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: var(--accent-red);
+            font-size: 0.95rem;
+        }
+        
+        #markdown-content pre {
+            background: var(--bg-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border: 1px solid var(--accent-brown);
+        }
+        
+        #markdown-content pre code {
+            background: none;
+            padding: 0;
+        }
+        
+        #markdown-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin: 2rem 0;
+            box-shadow: 0 5px 20px var(--shadow);
+        }
+        
+        #markdown-content a {
+            color: var(--accent-red);
+            text-decoration: none;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        #markdown-content a:hover {
+            border-bottom-color: var(--accent-red);
+        }
+        
+        #markdown-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+        }
+        
+        #markdown-content table th,
+        #markdown-content table td {
+            padding: 0.8rem;
+            border: 1px solid var(--accent-brown);
+            text-align: left;
+        }
+        
+        #markdown-content table th {
+            background: var(--accent-brown);
+            color: white;
+            font-weight: 600;
+        }
+        
+        #markdown-content table tr:nth-child(even) {
+            background: var(--bg-color);
+        }
+        
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin: 2rem 0;
+        }
+        
+        .tag {
+            background: var(--accent-brown);
+            color: #ffffff;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .tag:hover {
+            background: var(--accent-red);
+            transform: translateY(-2px);
+        }
+        
+        .divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-brown), transparent);
+            margin: 3rem 0;
+        }
+        
+        .reviews-section {
+            background: var(--card-bg);
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px var(--shadow);
+            margin-bottom: 2rem;
+        }
+        
+        .reviews-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--accent-red);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .review-form {
+            background: var(--bg-color);
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 3rem;
+        }
+        
+        .review-form h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--accent-brown);
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid var(--accent-brown);
+            border-radius: 8px;
+            background: var(--card-bg);
+            color: var(--text-color);
+            font-family: 'Lora', serif;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-red);
+            box-shadow: 0 0 10px rgba(193, 68, 14, 0.2);
+        }
+        
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .rating {
+            display: flex;
+            gap: 0.5rem;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .star {
+            cursor: pointer;
+            color: var(--grid-color);
+            transition: all 0.2s;
+        }
+        
+        .star:hover,
+        .star.active {
+            color: #ffd700;
+            transform: scale(1.2);
+        }
+        
+        .submit-btn {
+            background: var(--accent-red);
+            color: #ffffff;
+            border: 2px solid var(--accent-red);
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-family: 'Lora', serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .submit-btn:hover {
+            background: transparent;
+            color: var(--accent-red);
+            transform: translateY(-2px);
+        }
+        
+        .review-card {
+            background: var(--bg-color);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--accent-blue);
+            transition: all 0.3s;
+        }
+        
+        .review-card:hover {
+            border-left-width: 8px;
+            border-left-color: var(--accent-red);
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px var(--shadow);
+        }
+        
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .reviewer-name {
+            font-weight: 600;
+            color: var(--accent-brown);
+            font-size: 1.1rem;
+        }
+        
+        .review-date {
+            color: var(--accent-blue);
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+        
+        .review-stars {
+            color: #ffd700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .review-text {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            font-size: 1.2rem;
+            color: var(--accent-brown);
+        }
+        
+        .error {
+            text-align: center;
+            padding: 3rem;
+            font-size: 1.2rem;
+            color: var(--accent-red);
+        }
+        
+        @media (max-width: 768px) {
+            #blog-title { font-size: 2rem; }
+            article { padding: 2rem 1.5rem; }
+            .theme-toggle {
+                top: 1rem;
+                right: 1rem;
+                padding: 0.6rem 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" onclick="toggleTheme()">🌓 Toggle Theme</button>
+    
+    <div class="container">
+        <a href="index.html" class="back-btn">← Back to Home</a>
+        
+        <article>
+            <div class="blog-header">
+                <h1 id="blog-title">Loading...</h1>
+                <div id="blog-meta"></div>
+            </div>
+            
+            <div id="markdown-content" class="loading">
+                Loading blog post...
+            </div>
+            
+            <div id="blog-tags"></div>
+        </article>
+        
+        <div class="reviews-section">
+            <h2>Reader Reviews</h2>
+            
+            <div class="review-form">
+                <h3>Leave a Review</h3>
+                <form onsubmit="submitReview(event)">
+                    <div class="form-group">
+                        <label>Your Rating</label>
+                        <div class="rating" id="rating">
+                            <span class="star" data-rating="1">★</span>
+                            <span class="star" data-rating="2">★</span>
+                            <span class="star" data-rating="3">★</span>
+                            <span class="star" data-rating="4">★</span>
+                            <span class="star" data-rating="5">★</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" required placeholder="Your name">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" required placeholder="your@email.com">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="review">Your Review</label>
+                        <textarea id="review" required placeholder="Share your thoughts about this article..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Submit Review</button>
+                </form>
+            </div>
+            
+ 
+        </div>
+    
+    
+    <script>
+        // Get markdown file from URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const mdFile = urlParams.get('post') || 'blogs2.md';
+        
+        // Load and render markdown
+        async function loadMarkdown() {
+            try {
+                // Try to load from posts/ directory
+                const response = await fetch(`posts/${mdFile}`);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const markdown = await response.text();
+                
+                // Extract metadata (front matter between --- lines)
+                const lines = markdown.split('\n');
+                let title = 'Blog Post';
+                let date = '';
+                let author = 'Your Name';
+                let tags = [];
+                let contentStart = 0;
+                
+                // Parse YAML-like front matter
+                if (lines[0].trim() === '---') {
+                    for (let i = 1; i < lines.length; i++) {
+                        if (lines[i].trim() === '---') {
+                            contentStart = i + 1;
+                            break;
+                        }
+                        const [key, ...valueParts] = lines[i].split(':');
+                        const value = valueParts.join(':').trim();
+                        
+                        if (key.trim() === 'title') title = value;
+                        else if (key.trim() === 'date') date = value;
+                        else if (key.trim() === 'author') author = value;
+                        else if (key.trim() === 'tags') tags = value.split(',').map(t => t.trim());
+                    }
+                }
+                
+                // Set metadata
+                document.getElementById('blog-title').textContent = title;
+                document.title = `${title} | Your Name`;
+                
+                let metaHTML = '';
+                if (date) metaHTML += `<span>📅 ${date}</span>`;
+                if (author) metaHTML += `<span>👤 ${author}</span>`;
+                document.getElementById('blog-meta').innerHTML = metaHTML;
+                
+                // Render tags
+                if (tags.length > 0) {
+                    const tagsHTML = tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+                    document.getElementById('blog-tags').innerHTML = `<div class="tags">${tagsHTML}</div>`;
+                }
+                
+                // Render markdown content
+                const content = lines.slice(contentStart).join('\n');
+                const contentEl = document.getElementById('markdown-content');
+                contentEl.className = '';
+                contentEl.innerHTML = marked.parse(content);
+                
+            } catch (error) {
+                console.error('Error loading markdown:', error);
+                document.getElementById('markdown-content').className = 'error';
+                document.getElementById('markdown-content').innerHTML = `
+                    <p>⚠️ Error loading blog post</p>
+                    <p style="font-size: 1rem; margin-top: 1rem;">
+                        Could not load: <code>posts/${mdFile}</code>
+                    </p>
+                    <p style="font-size: 0.9rem; margin-top: 1rem;">
+                        Make sure the file exists in the <strong>posts/</strong> folder on GitHub.
+                    </p>
+                `;
+            }
+        }
+        
+        // Theme toggle
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }
+        
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        
+        // Rating system
+        let selectedRating = 0;
+        const stars = document.querySelectorAll('.star');
+        
+        stars.forEach(star => {
+            star.addEventListener('click', function() {
+                selectedRating = this.dataset.rating;
+                stars.forEach(s => {
+                    if (s.dataset.rating <= selectedRating) {
+                        s.classList.add('active');
+                    } else {
+                        s.classList.remove('active');
+                    }
+                });
+            });
+            
+            star.addEventListener('mouseenter', function() {
+                stars.forEach(s => {
+                    if (s.dataset.rating <= this.dataset.rating) {
+                        s.style.color = '#ffd700';
+                    } else {
+                        s.style.color = '';
+                    }
+                });
+            });
+        });
+        
+        document.getElementById('rating').addEventListener('mouseleave', function() {
+            stars.forEach(s => {
+                if (!s.classList.contains('active')) {
+                    s.style.color = '';
+                }
+            });
+        });
+        
+        function submitReview(e) {
+            e.preventDefault();
+            
+            if (selectedRating === 0) {
+                alert('Please select a rating!');
+                return;
+            }
+            
+            const name = document.getElementById('name').value;
+            const reviewText = document.getElementById('review').value;
+            
+            const reviewCard = document.createElement('div');
+            reviewCard.className = 'review-card';
+            reviewCard.innerHTML = `
+                <div class="review-header">
+                    <span class="reviewer-name">${name}</span>
+                    <span class="review-date">Just now</span>
+                </div>
+                <div class="review-stars">${'★'.repeat(selectedRating)}${'☆'.repeat(5-selectedRating)}</div>
+                <p class="review-text">${reviewText}</p>
+            `;
+            
+            document.getElementById('reviews-list').insertBefore(
+                reviewCard, 
+                document.getElementById('reviews-list').firstChild
+            );
+            
+            e.target.reset();
+            selectedRating = 0;
+            stars.forEach(s => s.classList.remove('active'));
+            
+            alert('Thank you for your review!');
+        }
+        
+        // Load markdown on page load
+        loadMarkdown();
+    </script>
+</body>
+</html>

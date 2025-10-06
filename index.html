@@ -41,6 +41,36 @@
             position: relative;
         }
         
+        .hover-container {
+      position: relative;
+      display: inline-block;
+      cursor: pointer;
+    }
+
+    .hover-image {
+      position: absolute;
+      top: 120%; /* below the text */
+      left: 50%;
+      transform: translateX(-50%);
+      display: none;
+      width: 150px; /* adjust size as you like */
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      z-index: 10;
+    }
+
+    /* Show image on hover */
+    .hover-container:hover .hover-image {
+      display: block;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    /* Fade-in effect */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+      to { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+
         body::before {
             content: '';
             position: fixed;
@@ -362,8 +392,8 @@
     
     <div class="container">
         <header>
-            <h1>Your Name</h1>
-            <p class="subtitle">Developer • Designer • Writer</p>
+            <h1>Abhinav Ananthu</h1>
+            <p class="subtitle">Student • Engineer • Explorer</p>
         </header>
         
         <nav>
@@ -378,61 +408,89 @@
         </nav>
         
         <section id="about">
-            <h2>About Me</h2>
-            <p>
-                Welcome to my digital space. I'm a passionate developer with a love for creating 
-                elegant solutions to complex problems. My journey in technology has been driven 
-                by curiosity and a desire to build meaningful experiences.
-            </p>
-            <p>
-                With years of experience in web development, I specialize in crafting responsive, 
-                user-friendly applications that make a difference. I believe in the power of clean 
-                code, thoughtful design, and continuous learning.
-            </p>
+            <h2>Hi people!</h2>
+ <p>
+    Welcome to my digital space! I’m 
+    <span class="hover-container">
+      <strong>Abhinav Ananthu</strong>
+      <img src="assets/WhatsApp Image 2025-08-20 at 22.34.28.jpeg" alt="Abhinav" class="hover-image">
+    </span>
+    — currently on track to complete my undergrad in 2026 and endlessly curious about how intelligent systems can be redesigned and optimized to make the most of the hardware they run on.  
+    I love diving deep into architectures — whether it’s transformer-based models or custom system designs — and I enjoy stepping back to scribble the math behind it all in my notebook, making complex ideas simpler to understand and explain.
+  </p>
+
+<p>
+  Outside the tech bubble, you’ll probably find me playing football, dancing to random songs just to keep my spirit alive, or lost in some abstract idea, painting a canvas with whatever I believe and see from my point of view.  
+  And honestly, you’re just one good conversation away from becoming a friend of mine. Ping me if you want to collaborate on some idea to build something thats helpful and fun to use.
+</p>
+
             <div class="skills">
-                <span class="skill">JavaScript</span>
-                <span class="skill">React</span>
-                <span class="skill">Node.js</span>
+                <span class="skill">low level C</span>
+                <span class="skill">C++</span>
+                <span class="skill">Linux</span>
                 <span class="skill">Python</span>
-                <span class="skill">TypeScript</span>
-                <span class="skill">CSS</span>
+                <span class="skill">Pytorch</span>
+                <span class="skill">Tflite</span>
                 <span class="skill">Git</span>
             </div>
         </section>
         
         <section id="projects">
             <h2>Projects</h2>
+
             <div class="project-card">
-                <h3>Project Alpha</h3>
+                <h3>Integrate Tflite-micro into EbmoxRTOS and perform Inference.</h3>
+                <p class="date">OSPP 2025 </p>
+                <p>
+                    The project aims to integrate TensorFlow Lite Micro (TFLite-Micro), a
+lightweight machine learning inference engine, into the Embox Real-Time
+Operating System (RTOS) to enhance its capabilities for embedded machine
+learning applications. The primary objective is to enable efficient deployment
+of edge-AI solutions on resource-constrained microcontrollers and custom
+hardware platforms, leveraging Embox’s modular and lightweight
+architecture.
+
+                </p>
+                <p>
+                    it's a great project If you want to test complex ML models on resource constraint devices and perform inference. Do checkout in the link below and feel free to contact me with suggestions on the same.
+                </p>
+                <a href="https://github.com/Herculoxz/embox" class="btn">View Code</a>
+                <a href="https://github.com/Herculoxz/embox/tree/master/project/tensorflow" class="btn">View Demo</a>
+                
+            </div>
+            <div class="project-card">
+                <h3>DSP on FPGA</h3>
+                <p class="date">2023</p>
+                <p>
+                    This project was my first on github ! We take an image, convert it to grayscale form , 
+                    scale it down to 9x9 pixels and give it as an input to the testbench ,
+                     then we implement all the steps of canny edge detection on the image ,
+                      further scaling up the compressed image to its original shape for edges .
+
+                </p>
+                <p>
+                    This whole compatationally heavy task was offloaded to an FPGA , So this project is to design such system in verilogHDL and test it on FPGA.
+                </p>
+
+                <a href="https://github.com/Herculoxz/DSP-ON-FPGA" class="btn">View Code</a>
+                
+                
+            </div>
+            
+            <div class="project-card">
+                <h3>MM-Lounge</h3>
                 <p class="date">2024</p>
                 <p>
-                    A full-stack web application featuring real-time collaboration tools. 
-                    Built with React, Node.js, and WebSockets for seamless user experience.
+                   MM-Lounge is a research-focused project providing implementations and blueprints for modern deep learning models, 
+                   particularly in computer vision and sequence data analysis. 
+                   This repository is ideal for students, 
+                   researchers, and developers who want to understand and rapidly prototype state-of-the-art neural networks.
                 </p>
-                <a href="#" class="btn">View Code</a>
-                <a href="#" class="btn btn-secondary">Live Demo</a>
-            </div>
-            
-            <div class="project-card">
-                <h3>Project Beta</h3>
-                <p class="date">2023</p>
                 <p>
-                    E-commerce platform with advanced search functionality and secure payment 
-                    integration. Handles thousands of daily transactions.
+                    I named it MM-lounge : Machine Mathematics - Lounge because I believe all of AI is just beautiful math on work!
                 </p>
-                <a href="#" class="btn">View Code</a>
-                <a href="#" class="btn btn-secondary">Live Demo</a>
-            </div>
-            
-            <div class="project-card">
-                <h3>Project Gamma</h3>
-                <p class="date">2023</p>
-                <p>
-                    Machine learning project for data visualization and predictive analytics. 
-                    Built with Python, TensorFlow, and interactive D3.js charts.
-                </p>
-                <a href="#" class="btn">View Code</a>
-                <a href="#" class="btn btn-secondary">Research Paper</a>
+                <a href="https://github.com/Herculoxz/MM-Lounge" class="btn">View Code</a>
+                
             </div>
         </section>
         
@@ -440,33 +498,59 @@
             <h2>Experience</h2>
             <div class="timeline">
                 <div class="timeline-item">
-                    <h3>Senior Developer</h3>
-                    <p class="date">2022 - Present</p>
-                    <p><strong>Tech Corporation</strong></p>
+                    <h3>OSPP student developer</h3>
+                    <p class="date">July '25 - September '25</p>
+                    <p><strong>EmboxRTOS</strong></p>
                     <p>
-                        Leading a team of developers in building scalable web applications. 
-                        Implementing best practices and mentoring junior team members. 
-                        Successfully reduced deployment time by 40%.
+                        It's an Open source program funded by many MNCs every year to improve the open source community of different open source projects. The project I worked on aims to integrate Machine Learning Inference Engine like Tensorflow(TFlite
+Micro) in Embox RTOS. This will allow us to use Embox RTOS for Embedded Machine
+Learning more effectively. This integration will streamline the development of edge‑AI
+applications, reduce memory footprint, and leverage Embox’s modular design to support
+a wide range of microcontrollers and custom hardware platforms.
                     </p>
                 </div>
                 
                 <div class="timeline-item">
-                    <h3>Full Stack Developer</h3>
-                    <p class="date">2020 - 2022</p>
-                    <p><strong>Digital Agency</strong></p>
+                    <h3>LFX Mentee</h3>
+                    <p class="date">March '25 - August '25</p>
+                    <p><strong>Linux Bug Fixing Program</strong></p>
                     <p>
-                        Developed and maintained multiple client projects using modern frameworks. 
-                        Collaborated with designers and stakeholders to deliver exceptional results.
+                        Linux Kernel Bug fixing operates within a unique collaborative framework that spans the global open-source
+community.Through hands-on experience with kernel debugging tools, patch development, and community
+contribution workflows, this program provided invaluable insights into the complexities of low-level systems
+programming and the disciplined approach required for maintaining critical infrastructure software.
                     </p>
+                    <p>
+                        I mainly worked on patches in rust-for-linux project to clean ABI callback functions and porting relevant functions to use sysfs-emit() from scnprintf() function.
                 </div>
                 
                 <div class="timeline-item">
-                    <h3>Junior Developer</h3>
-                    <p class="date">2018 - 2020</p>
-                    <p><strong>Startup Inc.</strong></p>
+                    <h3>IITB - Research intern</h3>
+                    <p class="date">May '25 - July '25</p>
+                    <p><strong>Robotics lab , EdgeAi/CV - intern</strong></p>
                     <p>
-                        Started my professional journey building responsive web applications. 
-                        Learned agile methodologies and contributed to 20+ successful launches.
+                        I developed a custom computer vision dataset of over 15,000 images to detect and classify car fuel system components,
+                         managing the full data lifecycle — from collection to annotation — using Roboflow. 
+                         I performed a detailed comparative study of object detection models including YOLOv8, YOLOv11, 
+                         and Detection Transformer (DETR), enhancing the YOLOv8 architecture with custom layers to improve small-object recognition. 
+                         The optimized models were then deployed on OAK-D Pro hardware, achieving real-time inference with integrated depth estimation and spatial coordinate tracking, 
+                         enabling precise and efficient component localization.
+                    </p>
+                
+                </div>
+
+                
+                <div class="timeline-item">
+                    <h3>VJTI,COE </h3>
+                    <p class="date">January '25 - April '25</p>
+                    <p><strong>ML Research Intern</strong></p>
+                    <p>
+                        As a research intern, I worked on multilingual language modeling and transformer-based video understanding. 
+                        I fine-tuned a large language model (LLM) using Fairseq and MASS on MADLAD-400 and BPCC datasets, 
+                        improving multilingual performance with a focus on underrepresented languages. 
+                        In parallel, I designed a Swin-UNet transformer architecture for video key-framing, 
+                        enabling efficient extraction of key moments from dynamic news feed streams and optimizing temporal representation learning for downstream tasks.
+
                     </p>
                 </div>
             </div>
@@ -478,40 +562,16 @@
                 Download my complete CV or explore my professional background below.
             </p>
             <div style="text-align: center; margin: 2rem 0;">
-                <a href="resume.pdf" class="btn" download>Download CV</a>
+                <a href="https://drive.google.com/file/d/1sBkBG53wpRU6PNQeFhr_mQIrllSTI2vV/view?usp=sharing" class="btn" download>Download CV</a>
             </div>
-            
-            <div class="divider"></div>
-            
-            <h3>Education</h3>
-            <p><strong>Master of Computer Science</strong> - University Name (2016-2018)</p>
-            <p>Specialized in Software Engineering and Artificial Intelligence</p>
-            
-            <p><strong>Bachelor of Technology</strong> - University Name (2012-2016)</p>
-            <p>Computer Science & Engineering</p>
-            
-            <div class="divider"></div>
-            
-            <h3>Certifications</h3>
-            <p>• AWS Certified Solutions Architect</p>
-            <p>• Google Cloud Professional Developer</p>
-            <p>• Certified Kubernetes Administrator</p>
-            <p>• React Advanced Patterns Certification</p>
-            
-            <div class="divider"></div>
-            
-            <h3>Achievements</h3>
-            <p>🏆 Hackathon Winner 2023</p>
-            <p>🏆 Employee of the Year 2022</p>
-            <p>🏆 Open Source Contributor (1000+ commits)</p>
-            <p>🏆 Speaker at Tech Conference 2023</p>
+
         </section>
         
-        <section id="thoughts">
+        <!-- <section id="thoughts">
             <h2>Thoughts</h2>
             <div class="project-card">
-                <h3>On the Nature of Code</h3>
-                <p class="date">October 2024</p>
+                <h3>pryRTOS *</h3>
+                <p class="date">Work In Progress</p>
                 <p>
                     Code is poetry. Every function, every variable, every algorithm tells a story. 
                     The best code isn't just functional—it's elegant, readable, and maintainable. 
@@ -538,56 +598,39 @@
                     of everything we create.
                 </p>
             </div>
-        </section>
+        </section> -->
         
-        <section id="blogs">
-            <h2>Blog Posts</h2>
-            <div class="project-card">
-                <h3>Building Scalable React Applications</h3>
-                <p class="date">October 15, 2024</p>
-                <p>
-                    A comprehensive guide to structuring large React applications. From component 
-                    architecture to state management, learn the patterns that scale with your project.
-                </p>
-                <a href="#" class="btn">Read More</a>
-            </div>
-            
-            <div class="project-card">
-                <h3>The Art of Clean Code</h3>
-                <p class="date">September 20, 2024</p>
-                <p>
-                    Clean code isn't about following rules blindly—it's about writing code that 
-                    communicates intent clearly. Explore principles that make code maintainable.
-                </p>
-                <a href="#" class="btn">Read More</a>
-            </div>
-            
-            <div class="project-card">
-                <h3>Modern CSS: Beyond the Basics</h3>
-                <p class="date">September 5, 2024</p>
-                <p>
-                    Dive into modern CSS features like Grid, Custom Properties, and Container Queries. 
-                    See how these tools transform the way we style web applications.
-                </p>
-                <a href="#" class="btn">Read More</a>
-            </div>
-        </section>
+<section id="blogs">
+    <h2>Blog Posts</h2>
+    <div class="project-card">
+        <h3>LFX '25 - My Journey to get started with Bug Fixing</h3>
+        <p class="blog-date">August 30, 2025</p>
+        <p>This blog is my attempt to document my journey: how I began , 
+            the hurdles I faced and the things I learned.
+             And a roadmap that beginners can use to take their first steps into
+              contributing to rust-for-linux and the linux kernel in general.
+
+</p>
+        <a href="https://medium.com/@anananthu_b22/a-start-to-long-journey-of-a-linux-kernel-contributor-lkmp25-spring-88be79e69e34" class="btn">Read More</a>
+    </div>
+    
+    <div class="project-card">
+        <h3>Getting started with OSPP '25</h3>
+        <p class="blog-date">July 7, 2025</p>
+        <p>For OSPP, I got selected to complete the project titled : `To integrate ML framework into Embox and add ML models for inferencing`. 
+            It's an amazing project in the domain of Embedded-ML to learn how to integrate several machine learning functions to RTOS and perform ML-inferencing on edge using contraiend resources</p>
+        <a href="blogs.html?post=blogs2.md" class="btn">Read More</a>
+    </div>
+    
+    <div class="project-card">
+        <h3>Micro Speech in zephyr RTOS </h3>
+        <p class="blog-date">April 10, 2025</p>
+        <p>This blog would be really helpful for those who are interested in learning about porting ML models like Micro Speech in zephyr RTOS </p>
+        <a href="blogs.html?post=blogs3.md" class="btn">Read More</a>
+    </div>
+</section>
         
-        <section id="gallery">
-            <h2>Gallery</h2>
-            <p>Visual showcase of projects, designs, and moments from my journey.</p>
-            <div class="gallery-grid">
-                <div class="gallery-item">[Image 1]</div>
-                <div class="gallery-item">[Image 2]</div>
-                <div class="gallery-item">[Image 3]</div>
-                <div class="gallery-item">[Image 4]</div>
-                <div class="gallery-item">[Image 5]</div>
-                <div class="gallery-item">[Image 6]</div>
-            </div>
-            <p style="margin-top: 1.5rem; font-size: 0.95rem; color: var(--accent-blue); text-align: center;">
-                Replace placeholders with your images
-            </p>
-        </section>
+
         
         <section id="contact">
             <h2>Contact Me</h2>
@@ -597,8 +640,8 @@
             </p>
             
             <form>
-                <input type="text" placeholder="Your Name" required>
-                <input type="email" placeholder="Your Email" required>
+                <input type="text" placeholder="Abhinav Ananthu" required>
+                <input type="email" placeholder="abhinav.ogl@gmail.com" required>
                 <input type="text" placeholder="Subject" required>
                 <textarea placeholder="Your Message" required></textarea>
                 <button type="submit" class="btn">Send Message</button>
@@ -613,10 +656,10 @@
         <footer>
             <p>&copy; 2025 Your Name. All rights reserved.</p>
             <div class="social-links">
-                <a href="https://github.com/yourusername">GitHub</a>
+                <a href="https://github.com/herculoxz">GitHub</a>
                 <a href="https://linkedin.com/in/yourusername">LinkedIn</a>
                 <a href="https://twitter.com/yourusername">Twitter</a>
-                <a href="mailto:your.email@example.com">Email</a>
+                <a href="mailto:abhinav.ogl@gmail.com">Email</a>
             </div>
         </footer>
     </div>
