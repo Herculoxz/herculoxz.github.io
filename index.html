@@ -385,6 +385,43 @@
                 padding: 0.6rem 1.2rem;
             }
         }
+
+        @media (max-width: 480px) {
+            .container { padding: 1rem; }
+
+            header { padding: 2.5rem 1rem 2rem; }
+            h1 { font-size: 2rem; line-height: 1.2; word-break: break-word; }
+            .subtitle { font-size: 1rem; }
+
+            nav { gap: 0.5rem; }
+            .nav-btn { padding: 0.6rem 1rem; font-size: 0.9rem; }
+
+            section { padding: 1.5rem 1rem; }
+            h2 { font-size: 1.6rem; }
+
+            p { font-size: 1rem; text-align: left; }
+
+            .btn { padding: 0.6rem 1rem; font-size: 0.95rem; }
+
+            .project-card { padding: 1rem; }
+            .skills { gap: 0.5rem; }
+            .skill { padding: 0.4rem 0.8rem; font-size: 0.85rem; }
+
+            .gallery-grid { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+
+            .timeline { padding-left: 1rem; margin-left: 0.5rem; }
+            .timeline-item { margin-bottom: 1.5rem; }
+
+            .theme-toggle { top: 0.5rem; right: 0.5rem; padding: 0.5rem 0.9rem; font-size: 0.9rem; }
+
+            footer { padding: 2rem 1rem; }
+            .social-links { gap: 0.9rem; }
+        }
+
+        @media (max-width: 360px) {
+            .nav-btn { padding: 0.5rem 0.7rem; font-size: 0.85rem; }
+            .btn { padding: 0.5rem 0.8rem; font-size: 0.9rem; }
+        }
     </style>
 </head>
 <body>
@@ -401,7 +438,7 @@
             <a href="#projects" class="nav-btn">Projects</a>
             <a href="#experience" class="nav-btn">Experience</a>
             <a href="#cv" class="nav-btn">CV</a>
-            <a href="#thoughts" class="nav-btn">Thoughts</a>
+            <!-- <a href="#ScratchPad" class="nav-btn">ScratchPad</a> -->
             <a href="#blogs" class="nav-btn">Blogs</a>
             <a href="#gallery" class="nav-btn">Gallery</a>
             <a href="#contact" class="nav-btn">Contact</a>
@@ -439,7 +476,7 @@
             <h2>Projects</h2>
 
             <div class="project-card">
-                <h3>Integrate Tflite-micro into EbmoxRTOS and perform Inference.</h3>
+                <h3><a href="https://summer-ospp.ac.cn/org/prodetail/259c00332?lang=en&list=pro" target="_blank" rel="noopener noreferrer">Integrate Tflite-micro into EbmoxRTOS and perform Inference.</a></h3>
                 <p class="date">OSPP 2025 </p>
                 <p>
                     The project aims to integrate TensorFlow Lite Micro (TFLite-Micro), a
@@ -567,8 +604,8 @@ programming and the disciplined approach required for maintaining critical infra
 
         </section>
         
-        <!-- <section id="thoughts">
-            <h2>Thoughts</h2>
+        <!-- <section id="ScratchPad">
+            <h2>Scratchpad</h2>
             <div class="project-card">
                 <h3>pryRTOS *</h3>
                 <p class="date">Work In Progress</p>
